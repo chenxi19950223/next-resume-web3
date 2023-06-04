@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, #4dc0b5, #3490dc);
+}
+
+.text-gradient {
+  background-color: #fff;
+  background-image: radial-gradient(at 4% 36%, hsla(0,0%,100%,1) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(0, 0, 0) 0, transparent 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient{
+  background-image: radial-gradient(transparent 1px,#fff 1px);
+  backdrop-filter: saturate(50%) blur(4px);
+  background-size: 4px 4px;
+}
