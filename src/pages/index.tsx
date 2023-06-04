@@ -1,7 +1,17 @@
+import Head from 'next/head';
+import {Layout, Header} from "@/components/index";
 
-function Home({}: any) {
+function Home() {
     return (
-        <div>page</div>
+        <>
+            <Head>
+                <title>next web3.0 resume</title>
+            </Head>
+            <Layout>
+                <Header />
+            </Layout>
+        </>
+
     )
 }
 
