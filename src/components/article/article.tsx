@@ -31,7 +31,7 @@ const Article = () => {
         {name: '飞鸿哥', desc: '一个大佬'},
         {name: '小张', desc: '一个海王'},
         {name: '火哥', desc: '一个拆二代'},
-        {name: '俊杰', desc: '一个耙耳朵'},
+        {name: '俊杰', desc: '一个耙耳朵的'},
     ]);
 
     return(
