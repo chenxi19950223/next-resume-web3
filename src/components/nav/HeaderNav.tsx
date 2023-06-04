@@ -1,5 +1,5 @@
-import {AiOutlineMenu} from "react-icons/Ai";
-import { SiTailwindcss } from "react-icons/Si";
+import {BsReverseListColumnsReverse} from "react-icons/bs";
+import { SiTailwindcss } from "react-icons/si";
 import {useState} from "react";
 
 const MenuItem = ({title}: {title: string}) => {
@@ -33,7 +33,7 @@ function HeaderNav() {
                     </div>
 
                     <div className='md:hidden block'>
-                        <AiOutlineMenu className='text-[30px] text-[#000] cursor-pointer' onClick={() => {
+                        <BsReverseListColumnsReverse className='text-[30px] text-[#000] cursor-pointer' onClick={() => {
                             setMenuOpen(!menuOpen);
                         }}/>
 

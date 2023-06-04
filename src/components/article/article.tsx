@@ -1,10 +1,9 @@
-import { AiOutlineMenu } from 'react-icons/Ai';
-
+import { BsFillPersonFill } from "react-icons/bs";
 const ArticleList = () => {
     return(
         <li className='w-full p-[30px] bg-white shadow shadow-[#ddd] hover:shadow-blue-200 rounded-xl flex gap-[30px] cursor-pointer'>
             <div className='min-w-[60px] h-[60px] rounded-full bg-gray-500 flex items-center justify-center'>
-                <AiOutlineMenu className='text-[50px] text-white'/>
+                <BsFillPersonFill className='text-[50px] text-white'/>
             </div>
             <div className='gap-2 text-2xl flex flex-col' style={{width: 'calc( 100% - 90px )'}}>
                 <p className='text-blue-400'>
