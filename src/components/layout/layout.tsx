@@ -2,7 +2,7 @@ import {ReactNode} from "react";
 
 function Layout({children}: { children: ReactNode }) {
     return (
-        <div>
+        <div className='min-w-[400px]'>
             {children}
         </div>
     );
