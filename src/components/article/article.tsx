@@ -1,22 +1,26 @@
 import { BsFillPersonFill } from "react-icons/bs";
+import Link from 'next/link'
 import {useState} from "react";
 const ArticleList = (data: any) => {
     return(
-        <li className='w-full p-[30px] bg-white shadow shadow-[#ddd] hover:shadow-blue-200 rounded-xl flex gap-[30px] cursor-pointer'>
-            <div className='min-w-[60px] h-[60px] rounded-full bg-gray-500 flex items-center justify-center'>
-                <BsFillPersonFill className='text-[50px] text-white'/>
-            </div>
-            <div className='gap-2 text-2xl flex flex-col' style={{width: 'calc( 100% - 90px )'}}>
-                <p className='text-blue-400'>
-                    <span>姓名：</span>
-                    {data.name}
-                </p>
-                <p className='truncate flex-1'>
-                    <span>简介：</span>
-                    {data.desc}
-                </p>
-            </div>
-        </li>
+        <Link href={'/resume?name='+data.name+'&desc='+data.desc}>
+            <li className='w-full p-[30px] bg-white shadow shadow-[#ddd] hover:shadow-blue-200 rounded-xl flex gap-[30px] cursor-pointer'>
+                <div className='min-w-[60px] h-[60px] rounded-full bg-gray-500 flex items-center justify-center'>
+                    <BsFillPersonFill className='text-[50px] text-white'/>
+                </div>
+                <div className='gap-2 text-2xl flex flex-col' style={{width: 'calc( 100% - 90px )'}}>
+                    <p className='text-blue-400'>
+                        <span>姓名：</span>
+                        {data.name}
+                    </p>
+                    <p className='truncate flex-1'>
+                        <span>简介：</span>
+                        {data.desc}
+                    </p>
+                </div>
+            </li>
+        </Link>
+
     )
 }
 

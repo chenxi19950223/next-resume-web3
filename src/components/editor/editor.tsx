@@ -3,20 +3,23 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import React, { useState, useEffect } from 'react'
 import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import {useRouter} from "next/router";
 
 function MyEditor() {
+    const route = useRouter();
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)   // TS 语法
     // const [editor, setEditor] = useState(null)                   // JS 语法
 
     // 编辑器内容
-    const [html, setHtml] = useState('<p>hello</p>')
+    const [html, setHtml] = useState(`<p>${route.query.name}的简历<br/>${route.query.desc}</p>`)
 
     // 模拟 ajax 请求，异步设置 html
     useEffect(() => {
-        setTimeout(() => {
-            setHtml('<p>hello world</p>')
-        }, 1500)
+        // const name = route.query.name;
+        // setTimeout(() => {
+        //     setHtml(`<p>${name}</p>`)
+        // }, 1500)
     }, [])
 
     // 工具栏配置

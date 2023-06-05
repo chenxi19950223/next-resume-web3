@@ -1,9 +1,10 @@
 import dynamic from 'next/dynamic'
+import {useRouter} from "next/router";
 
 const Editor = dynamic(() => import('@/components/editor/editor'), {
     ssr: false
 })
-function Resume () {
+function Resume (props: any) {
 
 
     return (
