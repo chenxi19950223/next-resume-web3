@@ -18,3 +18,7 @@
   backdrop-filter: saturate(50%) blur(4px);
   background-size: 4px 4px;
 }
+
+html,body,#__next{
+  height: 100%;
+}
