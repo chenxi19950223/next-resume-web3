@@ -1,4 +1,3 @@
-import '@wangeditor/editor/dist/css/style.css'
 import dynamic from 'next/dynamic'
 
 const Editor = dynamic(() => import('@/components/editor/editor'), {
