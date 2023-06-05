@@ -23,13 +23,23 @@ function MyEditor(props: any) {
     }, [])
 
     // 工具栏配置
-    const toolbarConfig: Partial<IToolbarConfig> = { }  // TS 语法
+    const toolbarConfig: Partial<IToolbarConfig> = {
+        excludeKeys: ['uploadVideo', "insertImage", "insertVideo"]
+    }  // TS 语法
     // const toolbarConfig = { }                        // JS 语法
 
     // 编辑器配置
     const editorConfig: Partial<IEditorConfig> = {    // TS 语法
         // const editorConfig = {                         // JS 语法
         placeholder: '请输入内容...',
+        "MENU_CONF": {
+            uploadImage: {
+                base64LimitSize: 1024 * 1024 * 6,
+                maxFileSize: 1024 * 1024 * 6
+            },
+
+        }
+
     }
 
     const outputHtml = (html: string) => {
@@ -39,6 +49,7 @@ function MyEditor(props: any) {
 
     // 及时销毁 editor ，重要！
     useEffect(() => {
+        console.log(editor);
         return () => {
             if (editor == null) return
             editor.destroy()
@@ -47,6 +58,8 @@ function MyEditor(props: any) {
     }, [editor])
 
     function getHtml(editor: any) {
+        console.log(editor.getAllMenuKeys())
+        console.log(editor.getMenuConfig("uploadVideo"))
         outputHtml(editor.getHtml())
         setHtml(editor.getHtml())
     }
