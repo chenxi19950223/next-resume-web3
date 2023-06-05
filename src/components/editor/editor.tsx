@@ -5,7 +5,7 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import {useRouter} from "next/router";
 
-function MyEditor() {
+function MyEditor(props: any) {
     const route = useRouter();
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)   // TS 语法
@@ -32,6 +32,11 @@ function MyEditor() {
         placeholder: '请输入内容...',
     }
 
+    const outputHtml = (html: string) => {
+        console.log(html);
+        props.getHtml(html);
+    }
+
     // 及时销毁 editor ，重要！
     useEffect(() => {
         return () => {
@@ -42,7 +47,7 @@ function MyEditor() {
     }, [editor])
 
     function getHtml(editor: any) {
-        console.log(editor.getHtml())
+        outputHtml(editor.getHtml())
         setHtml(editor.getHtml())
     }
 
