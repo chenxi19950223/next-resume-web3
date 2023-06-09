@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import {Layout, Header, Welcome, Article} from "@/components/index";
+import {Layout, Header, Welcome, Article, Footer} from "@/components/index";
 
 function Home() {
     return (
@@ -11,6 +11,7 @@ function Home() {
                 <Header />
                 <Welcome />
                 <Article />
+                <Footer />
             </Layout>
         </>
 
