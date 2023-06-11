@@ -2,6 +2,7 @@ import Head from 'next/head';
 import {Layout, Header, Welcome, Article, Footer} from "@/components/index";
 
 function Home() {
+
     return (
         <>
             <Head>

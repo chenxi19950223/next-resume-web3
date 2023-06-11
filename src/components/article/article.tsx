@@ -1,6 +1,7 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import Link from 'next/link'
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {TransactionContext} from "@/Context/TransactionContext";
 const ArticleList = (data: any) => {
     return(
         <Link href={'/resume?name='+data.name+'&desc='+data.desc}>
@@ -25,6 +26,12 @@ const ArticleList = (data: any) => {
 }
 
 const Article = () => {
+
+    const {getUser} = useContext(TransactionContext) as any;
+
+    useEffect(() => {
+        getUser();
+    }, [])
 
     const [articleList, setArticleList] = useState([
         {name: '赵飞鱼', desc: '一个前端工程师'},
