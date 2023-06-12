@@ -12,21 +12,17 @@ function MyEditor(props: any) {
     // const [editor, setEditor] = useState(null)                   // JS 语法
 
     // 编辑器内容
-    const [html, setHtml] = useState(`<p>${route.query.name}的简历<br/>${route.query.desc}</p>`)
+    const [html, setHtml] = useState(``)
 
     // 模拟 ajax 请求，异步设置 html
     useEffect(() => {
-        // const name = route.query.name;
-        // setTimeout(() => {
-        //     setHtml(`<p>${name}</p>`)
-        // }, 1500)
-    }, [])
+        setHtml(props.html);
+    }, [props.html])
 
     // 工具栏配置
     const toolbarConfig: Partial<IToolbarConfig> = {
         excludeKeys: ['uploadVideo', "insertImage", "insertVideo"]
     }  // TS 语法
-    // const toolbarConfig = { }                        // JS 语法
 
     // 编辑器配置
     const editorConfig: Partial<IEditorConfig> = {    // TS 语法

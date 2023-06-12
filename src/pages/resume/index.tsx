@@ -7,28 +7,28 @@ const Editor = dynamic(() => import('@/components/editor/editor'), {
     ssr: false
 })
 
-const Input = ({title, name, input }: {title: string, input: any, name: string}) => {
+const Input = ({title, name, input, value }: {title: string, input: any, name: string, value: any}) => {
     return (
         <label className='flex gap-[20px] items-center justify-start' htmlFor="">
-            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span><input onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="text"/>
+            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span><input defaultValue={value} onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="text"/>
         </label>
     )
 }
 
-const NumberInput = ({title, name, input }: {title: string, input: any, name: string}) => {
+const NumberInput = ({title, name, input, value }: {title: string, input: any, name: string, value: any}) => {
     return (
         <label className='flex gap-[20px] items-center justify-start' htmlFor="">
-            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span><input onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="number"/>
+            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span><input defaultValue={value} onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="number"/>
         </label>
     )
 }
 
-const Select = ({title, name, input }: {title: string, input: any, name: string}) => {
+const Select = ({title, name, input, value }: {title: string, input: any, name: string, value: any}) => {
     return (
         <label className='flex gap-[20px] items-center justify-start' htmlFor="">
             <span className='inline-block text-blue-400 w-[80px]'>{title}：</span>
             {/*<input onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="number"/>*/}
-            <select name="" id="" className='rounded-[6px] border-blue-400 flex-1'>
+            <select defaultValue={value} name="" id="" className='rounded-[6px] border-blue-400 flex-1'>
                 <option value={0}>男</option>
                 <option value={1}>女</option>
             </select>
@@ -37,7 +37,7 @@ const Select = ({title, name, input }: {title: string, input: any, name: string}
 }
 
 function Resume () {
-    const {setData} = useContext(TransactionContext) as any;
+    const {setData, getActiveUser, currentAccount} = useContext(TransactionContext) as any;
     const route = useRouter();
     const [html, setHtml] = useState<string>('');
     const [userInfo, setUserInfo] = useState<Resume>({
@@ -57,6 +57,15 @@ function Resume () {
         // 简历文档
         doc: ''
     });
+
+    useEffect(() => {
+        if (currentAccount !== '') {
+            getActiveUser().then((res: Resume) => {
+                setUserInfo(res);
+            })
+        }
+
+    }, [currentAccount])
 
     const saveHtml = () => {
         console.log(userInfo);
@@ -106,18 +115,18 @@ function Resume () {
                 </div>
                 <form className='p-[20px]  flex-wrap border-t-8'>
                     <div className='user-info'>
-                        <NumberInput title={'年龄'} name={'age'} input={input}/>
-                        <Select title={'性别'} name={'sex'} input={input}/>
-                        <Input title={'手机号'} name={'phone'} input={input}/>
-                        <Input title={'邮箱'} name={'Email'} input={input}/>
-                        <Input title={'所在地'} name={'location'} input={input}/>
+                        <NumberInput title={'年龄'} value={userInfo.age} name={'age'} input={input}/>
+                        <Select title={'性别'} value={userInfo.sex} name={'sex'} input={input}/>
+                        <Input title={'手机号'} value={userInfo.phone} name={'phone'} input={input}/>
+                        <Input title={'邮箱'} value={userInfo.Email} name={'Email'} input={input}/>
+                        <Input title={'所在地'} value={userInfo.location} name={'location'} input={input}/>
                     </div>
                     <label className='w-[100%] flex items-center mt-[20px] gap-[20px]' htmlFor="">
                         <span className='text-blue-400 w-[80px] text-center'>简历：</span><input onChange={getFile} className='flex-1' type="file"/>
                     </label>
                 </form>
                 <div className='flex-1'>
-                    <Editor getHtml={(htmlStr: string) => input({value: htmlStr, name: 'doc'})}/>
+                    <Editor html={userInfo.doc} getHtml={(htmlStr: string) => input({value: htmlStr, name: 'doc'})}/>
                 </div>
             </div>
         </>

@@ -51,7 +51,6 @@ export function ThemeProvider({children}: { children: any }) {
         try {
             if (!doYouHaveWallet()) return;
             const accounts = await (window as any).ethereum.request({method: 'eth_accounts'});
-            console.log(accounts);
             if (Array.isArray(accounts) && accounts.length > 0) {
                 setCurrentAccount(accounts[0]);
             } else {
@@ -148,6 +147,29 @@ export function ThemeProvider({children}: { children: any }) {
         }
     }
 
+    // 获取用户信息
+    const getActiveUser = async () => {
+        try {
+            if (!doYouHaveWallet()) return;
+            const transaction = getEthereumConstant();
+            const info = await transaction.getActiveUser(currentAccount)
+            const obj = {
+                name: info.name,
+                age: info.age,
+                sex: info.sex,
+                location: info.location,
+                phone: info.phone,
+                Email: info.Email,
+                file: info.file,
+                doc: info.doc
+            }
+            return obj;
+        } catch (e) {
+            console.log(e);
+            // throw new Error('no ethereum object');
+        }
+    }
+
     // // 交易 以及设置交易数量 以及获取所有交易
     // const sendTransaction = async () => {
     //     try {
@@ -195,7 +217,8 @@ export function ThemeProvider({children}: { children: any }) {
             setFormData: serFormData,
             Loading,
             getUser,
-            setData
+            setData,
+            getActiveUser
         }}>{children}</TransactionContext.Provider>
     );
 }
