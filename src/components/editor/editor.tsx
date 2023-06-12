@@ -43,13 +43,11 @@ function MyEditor(props: any) {
     }
 
     const outputHtml = (html: string) => {
-        console.log(html);
         props.getHtml(html);
     }
 
     // 及时销毁 editor ，重要！
     useEffect(() => {
-        console.log(editor);
         return () => {
             if (editor == null) return
             editor.destroy()
@@ -58,8 +56,6 @@ function MyEditor(props: any) {
     }, [editor])
 
     function getHtml(editor: any) {
-        console.log(editor.getAllMenuKeys())
-        console.log(editor.getMenuConfig("uploadVideo"))
         outputHtml(editor.getHtml())
         setHtml(editor.getHtml())
     }
