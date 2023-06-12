@@ -51,10 +51,8 @@ export function ThemeProvider({children}: { children: any }) {
     const checkIfWalletIsConnected = async () => {
         try {
             if (!doYouHaveWallet()) return;
-            const accounts = await (window as any).ethereum.request({method: 'eth_accounts'});
-            if (Array.isArray(accounts) && accounts.length > 0) {
-                setCurrentAccount(accounts[0]);
-                localStorage.setItem('currentAccount', accounts[0]);
+            if (localStorage.getItem('currentAccount')) {
+                setCurrentAccount(localStorage.getItem('currentAccount'));
             } else {
                 console.log('no account found');
             }
@@ -72,6 +70,7 @@ export function ThemeProvider({children}: { children: any }) {
             if (!doYouHaveWallet()) return;
             const accounts = await (window as any).ethereum.request({method: 'eth_requestAccounts'});
             setCurrentAccount(accounts[0]);
+            localStorage.setItem('currentAccount', accounts[0]);
         } catch (e) {
             console.log(e);
             // throw new Error('no ethereum object');

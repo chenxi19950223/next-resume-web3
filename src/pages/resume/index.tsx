@@ -7,28 +7,30 @@ const Editor = dynamic(() => import('@/components/editor/editor'), {
     ssr: false
 })
 
-const Input = ({title, name, input, value }: {title: string, input: any, name: string, value: any}) => {
+const Input = ({title, name, input, value, disabled }: {title: string, input: any, name: string, value: any, disabled: boolean}) => {
     return (
         <label className='flex gap-[20px] items-center justify-start' htmlFor="">
-            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span><input defaultValue={value} onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="text"/>
+            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span>
+            <input disabled={disabled} defaultValue={value} onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="text"/>
         </label>
     )
 }
 
-const NumberInput = ({title, name, input, value }: {title: string, input: any, name: string, value: any}) => {
+const NumberInput = ({title, name, input, value, disabled }: {title: string, input: any, name: string, value: any, disabled: boolean}) => {
     return (
         <label className='flex gap-[20px] items-center justify-start' htmlFor="">
-            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span><input defaultValue={value} onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="number"/>
+            <span className='inline-block text-blue-400 w-[80px]'>{title}：</span>
+            <input defaultValue={value} disabled={disabled} onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="number"/>
         </label>
     )
 }
 
-const Select = ({title, name, input, value }: {title: string, input: any, name: string, value: any}) => {
+const Select = ({title, name, input, value, disabled }: {title: string, input: any, name: string, value: any, disabled: boolean}) => {
     return (
         <label className='flex gap-[20px] items-center justify-start' htmlFor="">
             <span className='inline-block text-blue-400 w-[80px]'>{title}：</span>
             {/*<input onInput={(e: any) => input({value: e.target?.value, name})} className='rounded-[6px] border-blue-400 flex-1' type="number"/>*/}
-            <select defaultValue={value} name="" id="" className='rounded-[6px] border-blue-400 flex-1'>
+            <select defaultValue={value} disabled={disabled} name="" id="" className='rounded-[6px] border-blue-400 flex-1'>
                 <option value={0}>男</option>
                 <option value={1}>女</option>
             </select>
@@ -111,22 +113,24 @@ function Resume () {
             <div className='h-full flex flex-col'>
                 <div className='flex justify-between p-3'>
                     <input type="text" defaultValue={userInfo.name} onChange={handleChange} className='border-none rounded-[4px] cursor-pointer bg-zinc-500 text-white focus:outline-0'/>
-                    <button onClick={saveHtml} className='h-[30px] w-[80px] rounded-[6px] bg-blue-700 text-white'>保存</button>
+                    {
+                        userInfo.sender !== currentAccount ? (<button onClick={saveHtml} className='h-[30px] w-[80px] rounded-[6px] bg-blue-700 text-white'>保存</button>) : null
+                    }
                 </div>
                 <form className='p-[20px]  flex-wrap border-t-8'>
                     <div className='user-info'>
-                        <NumberInput title={'年龄'} value={userInfo.age} name={'age'} input={input}/>
-                        <Select title={'性别'} value={userInfo.sex} name={'sex'} input={input}/>
-                        <Input title={'手机号'} value={userInfo.phone} name={'phone'} input={input}/>
-                        <Input title={'邮箱'} value={userInfo.Email} name={'Email'} input={input}/>
-                        <Input title={'所在地'} value={userInfo.location} name={'location'} input={input}/>
+                        <NumberInput title={'年龄'} disabled={userInfo.sender === currentAccount} value={userInfo.age} name={'age'} input={input}/>
+                        <Select title={'性别'} disabled={userInfo.sender === currentAccount} value={userInfo.sex} name={'sex'} input={input}/>
+                        <Input title={'手机号'} disabled={userInfo.sender === currentAccount} value={userInfo.phone} name={'phone'} input={input}/>
+                        <Input title={'邮箱'} disabled={userInfo.sender === currentAccount} value={userInfo.Email} name={'Email'} input={input}/>
+                        <Input title={'所在地'} disabled={userInfo.sender === currentAccount} value={userInfo.location} name={'location'} input={input}/>
                     </div>
                     <label className='w-[100%] flex items-center mt-[20px] gap-[20px]' htmlFor="">
                         <span className='text-blue-400 w-[80px] text-center'>简历：</span><input onChange={getFile} className='flex-1' type="file"/>
                     </label>
                 </form>
                 <div className='flex-1'>
-                    <Editor html={userInfo.doc} getHtml={(htmlStr: string) => input({value: htmlStr, name: 'doc'})}/>
+                    <Editor html={userInfo.doc} disabled={userInfo.sender === currentAccount} getHtml={(htmlStr: string) => input({value: htmlStr, name: 'doc'})}/>
                 </div>
             </div>
         </>

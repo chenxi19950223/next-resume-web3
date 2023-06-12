@@ -38,6 +38,8 @@ function MyEditor(props: any) {
 
     }
 
+
+
     const outputHtml = (html: string) => {
         props.getHtml(html);
     }
@@ -50,6 +52,13 @@ function MyEditor(props: any) {
             setEditor(null)
         }
     }, [editor])
+
+    useEffect(() => {
+        console.log(props.disabled)
+        if (props.disabled && editor) {
+            editor.disable();
+        }
+    }, [props.disabled])
 
     function getHtml(editor: any) {
         outputHtml(editor.getHtml())

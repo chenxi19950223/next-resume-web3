@@ -1,7 +1,10 @@
 import Head from 'next/head';
 import {Layout, Header, Welcome, Article, Footer} from "@/components/index";
+import {useContext} from "react";
+import {TransactionContext} from "@/Context/TransactionContext";
 
 function Home() {
+    const {currentAccount} = useContext(TransactionContext) as any;
 
     return (
         <>
@@ -11,7 +14,11 @@ function Home() {
             <Layout>
                 <Header />
                 <Welcome />
-                <Article />
+                {currentAccount !== '' ? (
+                    <Article />
+                ) : (
+                    <div className='text-center text-[30px] py-[150px]'>请点链接</div>
+                )}
                 <Footer />
             </Layout>
         </>
