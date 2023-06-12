@@ -32,4 +32,5 @@ export interface Resume {
     location: string;
     file: string;
     doc: string;
+    sender?: string;
 }

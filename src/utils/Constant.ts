@@ -3,4 +3,4 @@
 import abi from './Transactions.json';
 
 export const ConstantAbi = abi.abi;
-export const ConstantAddress = '0xb43A141e5dE886247012436664Eb82D9e07Dc726';
+export const ConstantAddress = '0xeA951305a26d8aC6D09DbF08dBb6E6F8C71d36eb';

@@ -3,6 +3,7 @@ import { SiTailwindcss } from "react-icons/si";
 import {useContext, useEffect, useState} from "react";
 import {TransactionContext} from "@/Context/TransactionContext";
 import {shortenAddress} from '@/utils/shortenAddress'
+import Link from 'next/link'
 
 const MenuItem = ({title}: {title: string}) => {
     return (
@@ -39,7 +40,9 @@ function HeaderNav() {
                         {
                             (currentAccount !== '') ? (
                                 <div>
-                                    <button className='text-gray-400 cursor-pointer flex align-top'><span className='align-top leading-[14px]'>{shortenAddress(currentAccount)}</span></button>
+                                    <Link href={'/resume?address=' + currentAccount}>
+                                        <button className='text-gray-400 cursor-pointer flex align-top'><span className='align-top leading-[14px]'>{shortenAddress(currentAccount)}</span></button>
+                                    </Link>
                                 </div>
                                 ) : (
                                 <button className='w-[180px] h-[50px] bg-cyan-400 rounded-full text-white text-[20px]' onClick={connectWallet}>Connect Wallet</button>

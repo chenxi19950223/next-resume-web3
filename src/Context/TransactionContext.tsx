@@ -2,6 +2,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 
 import {ethers} from "ethers";
 import {ConstantAbi, ConstantAddress} from "@/utils/Constant";
+import {Resume} from "@/types/base";
 
 // @ts-ignore
 export const TransactionContext = createContext();
@@ -53,6 +54,7 @@ export function ThemeProvider({children}: { children: any }) {
             const accounts = await (window as any).ethereum.request({method: 'eth_accounts'});
             if (Array.isArray(accounts) && accounts.length > 0) {
                 setCurrentAccount(accounts[0]);
+                localStorage.setItem('currentAccount', accounts[0]);
             } else {
                 console.log('no account found');
             }
@@ -98,30 +100,22 @@ export function ThemeProvider({children}: { children: any }) {
         try {
             const transaction = getEthereumConstant();
             const userList = await transaction.getUserList();
-            console.log(userList);
+            return userList;
         } catch (e) {
             console.log(e);
         }
     }
 
+
     // 上传简历信息
-    const setData = async (data: any) => {
+    const setData = async (data: Resume) => {
         try {
             if (!doYouHaveWallet()) return;
             const {ethereum} = window as any;
             const transaction = getEthereumConstant();
-            console.log(transaction);
-            // transaction.setResumeInfo({
-            //     _name: '',
-            //     _sex: 0,
-            //     _age: 0,
-            //     _phone: 0,
-            //     _Email: '',
-            //     _location: '',
-            //     _file: '',
-            //     _doc: data.doc
-            // });
-            transaction.setResumeInfo(data.name, 0, 0, 0, 'data.Email', 'data.location', 'data.file', data.doc);
+            console.log(data);
+            const transactionHash = await transaction.setResumeInfo(data.name, Number(data.age), data.sex, data.phone, data.Email, data.location, data.file, data.doc);
+            await transactionHash.wait()
             // const parsedAmount = ethers.utils.parseEther('0.001');
             // await ethereum.request({
             //     method: 'eth_sendTransaction',
@@ -148,11 +142,12 @@ export function ThemeProvider({children}: { children: any }) {
     }
 
     // 获取用户信息
-    const getActiveUser = async () => {
+    const getActiveUser = async (address: string = '') => {
         try {
             if (!doYouHaveWallet()) return;
             const transaction = getEthereumConstant();
-            const info = await transaction.getActiveUser(currentAccount)
+            const info = await transaction.getActiveUser(address === '' ? currentAccount : address);
+            console.log(info)
             const obj = {
                 name: info.name,
                 age: info.age,
@@ -161,7 +156,8 @@ export function ThemeProvider({children}: { children: any }) {
                 phone: info.phone,
                 Email: info.Email,
                 file: info.file,
-                doc: info.doc
+                doc: info.doc,
+                sender: info.sender
             }
             return obj;
         } catch (e) {

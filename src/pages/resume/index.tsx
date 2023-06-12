@@ -59,12 +59,12 @@ function Resume () {
     });
 
     useEffect(() => {
-        if (currentAccount !== '') {
-            getActiveUser().then((res: Resume) => {
+        if (currentAccount) {
+            getActiveUser(route.query.address).then((res: Resume) => {
+                console.log(res);
                 setUserInfo(res);
             })
         }
-
     }, [currentAccount])
 
     const saveHtml = () => {
@@ -110,7 +110,7 @@ function Resume () {
         <>
             <div className='h-full flex flex-col'>
                 <div className='flex justify-between p-3'>
-                    <input type="text" defaultValue={route.query.name} onChange={handleChange} className='border-none rounded-[4px] cursor-pointer bg-zinc-500 text-white focus:outline-0'/>
+                    <input type="text" defaultValue={userInfo.name} onChange={handleChange} className='border-none rounded-[4px] cursor-pointer bg-zinc-500 text-white focus:outline-0'/>
                     <button onClick={saveHtml} className='h-[30px] w-[80px] rounded-[6px] bg-blue-700 text-white'>保存</button>
                 </div>
                 <form className='p-[20px]  flex-wrap border-t-8'>
