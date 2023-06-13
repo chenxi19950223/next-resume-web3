@@ -51,10 +51,17 @@ export function ThemeProvider({children}: { children: any }) {
     const checkIfWalletIsConnected = async () => {
         try {
             if (!doYouHaveWallet()) return;
+            // 检查缓存中是否链接钱包
             if (localStorage.getItem('currentAccount')) {
                 setCurrentAccount(localStorage.getItem('currentAccount'));
             } else {
-                console.log('no account found');
+                const accounts = await (window as any).ethereum.request({method: 'eth_accounts'});
+                if (accounts.length) {
+                    setCurrentAccount(accounts[0]);
+                    localStorage.setItem('currentAccount', accounts[0]);
+                } else {
+                    console.log('no account found');
+                }
             }
         } catch (e) {
             console.log(e);
@@ -112,9 +119,9 @@ export function ThemeProvider({children}: { children: any }) {
             if (!doYouHaveWallet()) return;
             const {ethereum} = window as any;
             const transaction = getEthereumConstant();
-            console.log(data);
             const transactionHash = await transaction.setResumeInfo(data.name, Number(data.age), data.sex, data.phone, data.Email, data.location, data.file, data.doc);
             await transactionHash.wait()
+            return true
             // const parsedAmount = ethers.utils.parseEther('0.001');
             // await ethereum.request({
             //     method: 'eth_sendTransaction',
@@ -145,8 +152,7 @@ export function ThemeProvider({children}: { children: any }) {
         try {
             if (!doYouHaveWallet()) return;
             const transaction = getEthereumConstant();
-            const info = await transaction.getActiveUser(address === '' ? currentAccount : address);
-            console.log(info)
+            const info = await transaction.getActiveUser(address);
             const obj = {
                 name: info.name,
                 age: info.age,

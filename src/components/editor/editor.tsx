@@ -53,12 +53,11 @@ function MyEditor(props: any) {
         }
     }, [editor])
 
-    useEffect(() => {
-        console.log(props.disabled)
-        if (props.disabled && editor) {
-            editor.disable();
-        }
-    }, [props.disabled])
+    // useEffect(() => {
+    //     if (props.disabled && editor) {
+    //         editor.disable();
+    //     }
+    // }, [props.disabled])
 
     function getHtml(editor: any) {
         outputHtml(editor.getHtml())

@@ -1,6 +1,8 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import Link from 'next/link'
 import {useContext, useEffect, useState} from "react";
+import { Spin } from 'antd';
+
 import {TransactionContext} from "@/Context/TransactionContext";
 import {Resume} from "@/types/base";
 const ArticleList = (data: any) => {
@@ -32,7 +34,10 @@ const Article = () => {
 
     const [user, setUser] = useState<Resume[]>([]);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     useEffect(() => {
+        setLoading(true);
         getUser().then((res: string[]) => {
             if (res.length === 0) {
                 return;
@@ -42,27 +47,30 @@ const Article = () => {
                 list.push(getActiveUser(item));
             });
             Promise.all(list).then((res: any) => {
-                console.log(res);
                 setUser(res);
+                setLoading(false);
             });
         })
     }, [])
 
     return(
-        <div className='flex flex-col items-center justify-center py-[40px] px-[10px]'>
-            <div className='lg:w-[1024px] w-full'>
-                { user.length > 0 ?
-                    (<ul className='list-none w-full h-auto flex flex-col gap-[20px]'>
-                        {
-                            user.map((item, i) => (<ArticleList {...item} key={i}/>))
-                        }
-                    </ul>) :
-                    (
-                        <div className='text-center py-[150px] text-[30px]'>暂无数据</div>
-                    )
-                }
+        <Spin spinning={loading}>
+            <div className='flex flex-col items-center justify-center py-[40px] px-[10px]'>
+                <div className='lg:w-[1024px] w-full'>
+                    { user.length > 0 ?
+                        (<ul className='list-none w-full h-auto flex flex-col gap-[20px]'>
+                            {
+                                user.map((item, i) => (<ArticleList {...item} key={i}/>))
+                            }
+                        </ul>) :
+                        (
+                            <div className='text-center py-[150px] text-[30px]'>暂无数据</div>
+                        )
+                    }
+                </div>
             </div>
-        </div>
+        </Spin>
+
     );
 }
 
