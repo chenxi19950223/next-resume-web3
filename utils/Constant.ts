@@ -3,4 +3,4 @@
 import abi from './Resume.json';
 
 export const ConstantAbi = abi.abi;
-export const ConstantAddress = '0x8e559e75505cbA8cEFe97697d44F8272F3493806';
+export const ConstantAddress = '0x27cDA9dec0413Ab4F0E124e75D40B7808dFE8Ccb';

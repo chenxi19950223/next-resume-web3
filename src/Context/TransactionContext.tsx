@@ -106,6 +106,7 @@ export function ThemeProvider({children}: { children: any }) {
         try {
             const transaction = getEthereumConstant();
             const userList = await transaction.getUserList();
+            console.log(userList);
             return userList;
         } catch (e) {
             console.log(e);

@@ -39,6 +39,7 @@ const Article = () => {
     useEffect(() => {
         setLoading(true);
         getUser().then((res: string[]) => {
+            console.log(res);
             if (res.length === 0) {
                 return;
             }
