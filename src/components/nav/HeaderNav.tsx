@@ -31,9 +31,9 @@ function HeaderNav() {
                     {/* 导航 */}
                     <div className='flex-1 ml-[200px] md:block hidden'>
                         <ul className='list-none flex w-[auto] text-[20px] gap-[30px]'>
-                            <li className='hover:text-cyan-400 cursor-pointer'>首页</li>
-                            <li className='hover:text-cyan-400 cursor-pointer'>简历列表</li>
-                            <li className='hover:text-cyan-400 cursor-pointer'>经历</li>
+                            {/*<li className='hover:text-cyan-400 cursor-pointer'>首页</li>*/}
+                            {/*<li className='hover:text-cyan-400 cursor-pointer'>简历列表</li>*/}
+                            {/*<li className='hover:text-cyan-400 cursor-pointer'>经历</li>*/}
                         </ul>
                     </div>
                     <div className='hidden md:block'>
@@ -72,9 +72,9 @@ function HeaderNav() {
                             }
 
                             {
-                                ['首页', '简历列表', '经历'].map((item, i) => {
-                                    return <MenuItem title={item} key={i}/>
-                                })
+                                // ['首页', '简历列表', '经历'].map((item, i) => {
+                                //     return <MenuItem title={item} key={i}/>
+                                // })
                             }
                         </ul>
                     </div>
