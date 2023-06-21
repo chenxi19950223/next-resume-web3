@@ -144,6 +144,7 @@ export function ThemeProvider({children}: { children: any }) {
             // getAllTransactions();
         } catch (e) {
             console.log(e);
+            return false;
             // throw new Error('no ethereum object');
         }
     }
