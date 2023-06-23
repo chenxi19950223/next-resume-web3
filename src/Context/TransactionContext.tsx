@@ -50,6 +50,14 @@ export function ThemeProvider({children}: { children: any }) {
     // 检查钱包是否连接 以及是否有交易 以及获取所有交易
     const checkIfWalletIsConnected = async () => {
         try {
+            const accounts = await (window as any).ethereum.request({method: 'eth_accounts'});
+            console.log(accounts);
+            if (accounts.length) {
+                setCurrentAccount(accounts[0]);
+                localStorage.setItem('currentAccount', accounts[0]);
+            } else {
+                console.log('no account found');
+            }
             if (!doYouHaveWallet()) return;
             // 检查缓存中是否链接钱包
             if (localStorage.getItem('currentAccount')) {

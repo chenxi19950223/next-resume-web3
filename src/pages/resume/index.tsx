@@ -65,6 +65,8 @@ function Resume () {
     useEffect(() => {
         if (route.query.address) {
             getActiveUser(route.query.address).then((res: Resume) => {
+                console.log(res);
+                if (Number(res.sender) === 0) res.sender = route.query.address as string;
                 setUserInfo(s => ({
                     ...s,
                     ...res
